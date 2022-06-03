@@ -1,5 +1,6 @@
 package bg.softuni.mobilelele.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User extends BaseEntity{
 
-    private String userName;
+    @Column(unique = true, nullable = false)
+    private String username;
 
     private String password;
 
@@ -28,12 +30,12 @@ public class User extends BaseEntity{
 
     private LocalDateTime modified;
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
