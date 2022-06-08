@@ -2,6 +2,7 @@ package bg.softuni.mobilelele.service;
 
 import bg.softuni.mobilelele.model.User;
 import bg.softuni.mobilelele.model.dto.UserLoginDto;
+import bg.softuni.mobilelele.model.dto.UserRegisterDto;
 import bg.softuni.mobilelele.repository.UserRepository;
 import bg.softuni.mobilelele.user.CurrentUser;
 import org.slf4j.Logger;
@@ -58,4 +59,21 @@ public class UserService {
         currentUser.
                 clear();
     }
+
+    public void registerAndLogin(UserRegisterDto userRegisterDto) {
+
+        if (userRegisterDto.getPassword().equals(userRegisterDto.getConfirmPassword())) {
+            User newUser = new User();
+            newUser.setFirstName(userRegisterDto.getFirstName());
+            newUser.setLastName(userRegisterDto.getLastName());
+            newUser.setUserName(userRegisterDto.getUsername());
+            newUser.setPassword(passwordEncoder.encode(userRegisterDto.getPassword()));
+            newUser.setActive(true);
+            userRepository.save(newUser);
+            login(newUser);
+        }
+
+    }
+
+
 }
